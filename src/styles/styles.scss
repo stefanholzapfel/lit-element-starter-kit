@@ -1,0 +1,20 @@
+@font-face {
+  font-family: 'EkMukta-Light';
+  src: url('../fonts/EkMukta-Light.woff') format('truetype');
+}
+
+@font-face {
+  font-family: 'EkMukta-SemiBold';
+  src: url('../fonts/EkMukta-SemiBold.woff') format('truetype');
+}
+body {
+  font-family: 'EkMukta-Light', sans-serif;
+  font-size: 1rem;
+
+  --color-primary: #df7900;
+  --color-secondary: #dfae7d;
+  --color-background: #f7f7f7;
+  --color-red: #dc4c4c;
+  --color-green: #449700;
+  --color-blue: #2c89a0;
+}
