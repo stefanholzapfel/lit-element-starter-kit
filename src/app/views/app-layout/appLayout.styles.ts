@@ -4,9 +4,11 @@ import { css } from 'lit-element';
 export const styles =
     css`
         :host {
+            height: calc(100vh - 2rem);
+            width: calc(100vw - 2rem);
+            margin: 1rem;
             display: grid;
-            height: 100vh;
-            grid-template-rows: calc(var(--sp-default-icon-size) * 1.5) 1rem 1fr 3rem;
+            grid-template-rows: 4rem auto 2rem;
         }
         
         @media (max-width: 650px) {

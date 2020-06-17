@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const dotenv = require('dotenv');
 const webpack = require('webpack');
@@ -88,14 +88,16 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.SP_ENV_VARS': getEnvVars()
         }),
-        new CopyWebpackPlugin([
-            {
-                from: './src/assets',
-                to: 'assets'
-            },
-            'node_modules/@webcomponents/webcomponentsjs/*.js',
-            'manifest.json'
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: './src/assets',
+                    to: 'assets'
+                },
+                'node_modules/@webcomponents/webcomponentsjs/*.js',
+                'manifest.json'
+            ]
+        }),
         new HtmlWebpackPlugin({
             chunksSortMode: 'none',
             template: './src/index.html'

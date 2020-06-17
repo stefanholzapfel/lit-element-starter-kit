@@ -4,7 +4,7 @@ import { translateUnsafeHTML } from 'lit-translate';
 import { sharedStyles } from '../../../../styles/shared.styles';
 import { styles } from './footer.styles';
 
-@customElement('footer')
+@customElement('lit-footer')
 export class Footer extends LitElement {
     static get styles() {
         return [
@@ -15,7 +15,7 @@ export class Footer extends LitElement {
     
     protected render() {
         return html`
-            <span class="text">${ translateUnsafeHTML('footer.link') } }</span>
+            <span class="text">${ translateUnsafeHTML('footer.link') }</span>
         `;
     }
 }

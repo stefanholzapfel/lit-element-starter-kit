@@ -64,7 +64,7 @@ export class RouterService {
                 action: () => {
                     import('../views/app-layout/pages/page1/page1');
                 },
-                component: 'page1'
+                component: 'lit-page1'
             },
             {
                 path: '/page2',
@@ -74,14 +74,14 @@ export class RouterService {
                         action: () => {
                             import('../views/app-layout/pages/page2/page2');
                         },
-                        component: 'page2'
+                        component: 'lit-page2'
                     },
                     {
                         path: '/:id',
                         action: async (context, commands) => {
                             import('../views/app-layout/pages/page2/page2');
                         },
-                        component: 'page2'
+                        component: 'lit-page2'
                     },
                 ]
             },
@@ -90,7 +90,7 @@ export class RouterService {
                 action: () => {
                     import('../views/app-layout/pages/main/main');
                 },
-                component: 'sp-intro'
+                component: 'lit-main'
             }
         ];
     }

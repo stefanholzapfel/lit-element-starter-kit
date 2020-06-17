@@ -1,15 +1,15 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import { until } from 'lit-html/directives/until.js';
+import '../../components/spinner-overlay';
 import { ConfigService } from '../../services/config.service';
 import { LitElementStateService } from '../../services/state/litElementState.service';
 import { TranslateService } from '../../services/translate.service';
 
+import '../app-layout/appLayout';
+
 import { styles } from './loading.styles';
 
-import '../app-layout/app';
-import '../../components/spinner-overlay';
-
-@customElement('loading')
+@customElement('lit-loading')
 export class Loading extends LitElement {
     
     static get styles() {
@@ -20,25 +20,35 @@ export class Loading extends LitElement {
     
     @property({ type: Object })
     private initializing: Promise<any> = null;
-
+    
     protected render() {
-        return html`
+        if (this.initializing) {
+            return html`
             ${ until(
-            this.initializing.then(res => html`
-                <app-layout></app-layout>
-            `),
-            html`
-                <spinner-overlay></spinner-overlay>
-            `
-        ) }
-        `;
+                this.initializing.then(res => html`<lit-app-layout></lit-app-layout>`),
+                html`<spinner-overlay></spinner-overlay>`
+            ) }
+            `;
+        }
     }
     
     protected firstUpdated() {
         this.initializing = Promise.all([
             ConfigService.init(),
             TranslateService.init('en-EN'),
-            LitElementStateService.init({})
+            LitElementStateService.init({
+                app: {
+                    mobile: false,
+                    language: 'en-EN',
+                    previousRoute: '/',
+                    currentRoute: '/'
+                },
+                components: {
+                    main: {},
+                    page1: {},
+                    page2: {}
+                }
+            })
         ]);
     }
 }

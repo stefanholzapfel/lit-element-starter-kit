@@ -3,14 +3,14 @@ import { installMediaQueryWatcher } from 'pwa-helpers/media-query';
 import { RouterService } from '../../services/router.service';
 import { LitElementStateService } from '../../services/state/litElementState.service';
 
-import { styles } from './app.styles';
+import { styles } from './appLayout.styles';
 
 import './../../components/spinner-overlay';
 import './footer/footer';
 import './header/header';
 
-@customElement('app')
-export class App extends LitElement {
+@customElement('lit-app-layout')
+export class AppLayout extends LitElement {
     
     static get styles() {
         return [
@@ -20,9 +20,9 @@ export class App extends LitElement {
     
     protected render() {
         return html`
-            <header></header>
+            <lit-header></lit-header>
             <div slot="router" id="router-outlet"></div>
-            <footer></footer>
+            <lit-footer></lit-footer>
         `;
     }
     

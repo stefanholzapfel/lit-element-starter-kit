@@ -29,8 +29,8 @@ export class LitElementStateSubscription<P> {
     emitValue() {
         this.subscriptionFunction(
             {
-                current: this.value,
-                next: null
+                previous: this.previousValue,
+                current: this.value
             }
         );
     }

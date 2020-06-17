@@ -1,5 +1,4 @@
 import { Strings, Values, ValuesCallback } from 'lit-translate/model';
-import { ConfigService } from './config.service';
 import { extract, get, registerTranslateConfig, use } from 'lit-translate';
 import { LitElementStateService } from './state/litElementState.service';
 
@@ -7,7 +6,7 @@ export class TranslateService {
     public static async init(language: Language): Promise<TranslateService> {
         if (!TranslateService.initialized) {
             registerTranslateConfig({
-                loader: lang => TranslateService.setLanguage(lang as Language),
+                loader: lang => Promise.resolve(TranslateService.loadedLanguages.get(lang as Language)),
                 interpolate: (text, values) => {
                     for (const [key, value] of Object.entries(extract(values))) {
                         text = text.replace(key, value as string);
@@ -33,7 +32,7 @@ export class TranslateService {
     }
     
     private static async loadLanguage(language: Language): Promise<Strings> {
-        const langsResponse = await fetch(ConfigService.get('APP_URL') + '/assets/lang/' + language + '.json' );
+        const langsResponse = await fetch('/assets/lang/' + language + '.json' );
         return await langsResponse.json();
     }
     

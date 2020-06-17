@@ -1,13 +1,13 @@
 import { LitElement } from 'lit-element';
 import { DeepPartial } from 'ts-essentials';
 import {
-    LitElementStateSubscriptionFunction,
+    CustomStateReducer,
+    LitElementStateSubscriptionFunction, ReducableState,
     State, SubscribeStateOptions
 } from './litElementState';
 import { LitElementStateService } from './litElementState.service';
 import { LitElementStateSubscription } from './litElementStateSubscription';
 
-// TODO: would be cool if we can figure out typings for a "sub"selection of state as root state on every lit-element
 export class LitElementStateful extends LitElement {
     
     private autoUnsubscribeSubs: LitElementStateSubscription<any>[] = [];
@@ -17,8 +17,8 @@ export class LitElementStateful extends LitElement {
         super();
     }
     
-    setState(statePartial: DeepPartial<State>) {
-        this.stateService.set(statePartial);
+    setState(statePartial: DeepPartial<ReducableState>, customReducer?: CustomStateReducer) {
+        this.stateService.set(statePartial, customReducer);
     }
     
     // Overloads
@@ -99,7 +99,7 @@ export class LitElementStateful extends LitElement {
         k2: K2,
         k3: K3,
         k4: K4,
-        property: any,
+        propertyName: any,
         options?: SubscribeStateOptions
     ): LitElementStateSubscription<State[K1][K2][K3][K4]>;
     // Implementation

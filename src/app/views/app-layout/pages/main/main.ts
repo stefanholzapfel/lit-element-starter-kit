@@ -4,7 +4,7 @@ import { translate } from 'lit-translate';
 import { sharedStyles } from '../../../../../styles/shared.styles';
 import { styles } from './main.styles';
 
-@customElement('main')
+@customElement('lit-main')
 export class Main extends LitElement {
     static get styles() {
         return [

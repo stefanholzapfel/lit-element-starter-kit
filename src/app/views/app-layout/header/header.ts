@@ -6,7 +6,7 @@ import { translate } from 'lit-translate';
 import { sharedStyles } from '../../../../styles/shared.styles';
 import { styles } from './header.styles';
 
-@customElement('sp-header')
+@customElement('lit-header')
 export class Header extends LitElementStateful {
     static get styles() {
         return [
@@ -29,20 +29,20 @@ export class Header extends LitElementStateful {
     
     protected render() {
         return html`
-            <div class="left">
+            <div class="bold">
                 ${ translate('header.title') }
             </div>
-            <div class="middle">
+            <div>
                 <div style="align-self: end">
                     <a href="/" class="${ this.currentRoute === '/' ? 'bold' : '' }">${ translate('pages.main.title') }</a> |
                     <a href="/page1" class="${ this.currentRoute.startsWith('/page1') ? 'bold' : '' }">${ translate('pages.page1.title') }</a> |
                     <a href="/page2" class="${ this.currentRoute.startsWith('/page2') ? 'bold' : '' }">${ translate('pages.page1.title') }</a>
                 </div>
             </div>
-            <div class="right">
+            <div>
                 ${ translate('header.language_select') }
-                    <a class="${ this.language === 'nl-NL' ? 'bold' : '' }" @click="${ () => this.switchLanguage('en-EN') }">${ translate('header.language_en') }</a> |
-                    <a class="${ this.language === 'en-EN' ? 'bold' : '' }" @click="${ () => this.switchLanguage('de-DE') }">${ translate('header.language_de') }</a>
+                    <a class="${ this.language === 'en-EN' ? 'bold' : '' }" @click="${ () => this.switchLanguage('en-EN') }">${ translate('header.language_en') }</a> |
+                    <a class="${ this.language === 'de-DE' ? 'bold' : '' }" @click="${ () => this.switchLanguage('de-DE') }">${ translate('header.language_de') }</a>
             </div>
         `;
     }

@@ -3,7 +3,7 @@ import { translate } from 'lit-translate';
 
 import { sharedStyles } from '../../../../../styles/shared.styles';
 
-@customElement('page1')
+@customElement('lit-page1')
 export class Page1 extends LitElement {
     static get styles() {
         return [

@@ -8,7 +8,7 @@
  * features, such as Symbol, which conflicts with '@babel/polyfill'. So
  * instead, we just import the features we know we need.
  */
-//import 'regenerator-runtime/runtime';
+import 'regenerator-runtime/runtime';
 
 // To force all event listeners for gestures to be passive.
 // See https://www.polymer-project.org/3.0/docs/devguide/settings#setting-passive-touch-gestures
