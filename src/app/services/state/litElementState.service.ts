@@ -2,7 +2,8 @@ import { LitElement } from 'lit-element';
 import { DeepPartial } from 'ts-essentials';
 import {
     CustomStateReducer,
-    LitElementStateSubscriptionFunction, ReducableState,
+    LitElementStateSubscriptionFunction,
+    ReducableState,
     State,
     SubscribeStateOptions
 } from './litElementState';
@@ -36,28 +37,34 @@ export class LitElementStateService {
     private static stateSubscriptions: LitElementStateSubscription<any>[] = [];
     
     static set(statePartial: DeepPartial<ReducableState>, customReducer?: CustomStateReducer): void {
-        // const statePartial = this.deepCopy(statePartial);
-        let newState;
         if (customReducer) {
-            newState = customReducer(this._state, statePartial);
+            this._state = customReducer(
+                this._state,
+                statePartial
+            );
         } else {
-            newState = this.deepMerge(this._state, statePartial);
+            this.deepMerge(
+                this._state,
+                statePartial
+            );
         }
         for (const subscription of this.stateSubscriptions) {
-            // TODO: introduce parameter to emit only when change in value happened and not on re-set?
             const changedPartial = this.getChangedPartial(
                 subscription.path,
                 statePartial
             );
             // TODO: What if path was set to null from higher level?
             if (changedPartial !== 'path_not_found') {
-                subscription.next(this.getChangedPartial(
-                    subscription.path,
-                    newState
-                ) as DeepPartial<State>);
+                subscription.next(
+                    this.deepCopy(
+                        this.getChangedPartial(
+                            subscription.path,
+                            this._state
+                        )
+                    ) as DeepPartial<State>
+                );
             }
         }
-        this._state = newState as State;
     };
     
     // Overloads
@@ -102,7 +109,11 @@ export class LitElementStateService {
             options = params.pop() as SubscribeStateOptions;
         }
         const subscriptionFunction = params.pop() as LitElementStateSubscriptionFunction<Part>;
-        return this.subscribeHelper(params as string[], subscriptionFunction, options);
+        return this.subscribeHelper(
+            params as string[],
+            subscriptionFunction,
+            options
+        );
     }
     
     // Overloads
@@ -159,8 +170,12 @@ export class LitElementStateService {
                 throw new Error('LitElement or property on LitElement not found! Maybe the element was removed' +
                     ' but connectedProperty not unsubscribed?');
             }
-        }
-        return this.subscribeHelper(params as string[], subscriptionFunction, options);
+        };
+        return this.subscribeHelper(
+            params as string[],
+            subscriptionFunction,
+            options
+        );
     }
     
     static getSubscribeOptions(): Readonly<SubscribeStateOptions> {
@@ -172,7 +187,8 @@ export class LitElementStateService {
     private static subscribeHelper<Part>(
         path: string[],
         subscriptionFunction: LitElementStateSubscriptionFunction<Part>,
-        options: SubscribeStateOptions): LitElementStateSubscription<Part> {
+        options: SubscribeStateOptions
+    ): LitElementStateSubscription<Part> {
         const subscription = new LitElementStateSubscription<Part>(
             path,
             subscriptionFunction,
@@ -200,7 +216,10 @@ export class LitElementStateService {
         }
     }
     
-    private static getChangedPartial(segments: string[], object: DeepPartial<State>): DeepPartial<State> | 'path_not_found' {
+    private static getChangedPartial(
+        segments: string[],
+        object: DeepPartial<State>
+    ): DeepPartial<State> | 'path_not_found' {
         let partial = object;
         for (const segment of segments) {
             if (segment in partial) {
@@ -216,35 +235,39 @@ export class LitElementStateService {
         return (item && typeof item === 'object' && !Array.isArray(item));
     }
     
-    private static deepMerge(target, ...sources) {
-        if (!sources.length) return target;
-        const source = sources.shift();
-        
-        if (this.isObject(target) && this.isObject(source)) {
-            if ('_reducerMode' in source && source._reducerMode === 'replace') {
-                delete source._reducerMode;
-                Object.assign(target, source);
-            } else {
-                delete source._reducerMode;
-                for (const key in source) {
-                    if (this.isObject(source[key])) {
-                        if (!target[key]) Object.assign(target, { [key]: {} });
-                        this.deepMerge(target[key], source[key]);
-                    } else {
-                        Object.assign(target, { [key]: source[key] });
-                    }
+    private static deepMerge(target: object, source: object) {
+        for (const key in source) {
+            if (this.isObject(source[key]) &&
+                (!('_reducerMode' in source[key]) || source[key]._reducerMode === 'merge')) {
+                delete source[key]._reducerMode;
+                if (!target[key]) {
+                    Object.assign(
+                        target,
+                        { [key]: {} }
+                    );
                 }
+                this.deepMerge(
+                    target[key],
+                    source[key]
+                );
+            } else {
+                delete source[key]._reducerMode;
+                Object.assign(
+                    target,
+                    { [key]: source[key] }
+                );
             }
         }
-        
-        return this.deepMerge(target, ...sources);
+        return target;
     }
     
     private static deepCopy(obj) {
         let copy;
         
         // Handle the 3 simple types, and null or undefined
-        if (null == obj || 'object' !== typeof obj) return obj;
+        if (null == obj || 'object' !== typeof obj) {
+            return obj;
+        }
         
         // Handle Date
         if (obj instanceof Date) {
@@ -256,7 +279,8 @@ export class LitElementStateService {
         // Handle Array
         if (obj instanceof Array) {
             copy = [];
-            for (let i = 0, len = obj.length; i < len; i++) {
+            for (let i = 0,
+                     len = obj.length; i < len; i++) {
                 copy[i] = this.deepCopy(obj[i]);
             }
             return copy;
@@ -266,7 +290,9 @@ export class LitElementStateService {
         if (obj instanceof Object) {
             copy = {};
             for (const attr in obj) {
-                if (obj.hasOwnProperty(attr)) copy[attr] = this.deepCopy(obj[attr]);
+                if (obj.hasOwnProperty(attr)) {
+                    copy[attr] = this.deepCopy(obj[attr]);
+                }
             }
             return copy;
         }
