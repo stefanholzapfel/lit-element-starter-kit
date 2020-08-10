@@ -1,5 +1,5 @@
 import { Router } from '@vaadin/router';
-import { LitElementStateService } from './state/litElementState.service';
+import { LitElementStateService } from 'lit-state';
 
 export class RouterService {
     public static init(outlet: HTMLElement): RouterService {
@@ -47,7 +47,7 @@ export class RouterService {
             event => {
                 RouterService.previousRoute = RouterService.currentRoute;
                 RouterService.currentRoute = (event as any).detail.location.pathname;
-                LitElementStateService.set({
+                LitElementStateService.getGlobalInstance().set({
                     app: {
                         previousRoute: RouterService.previousRoute,
                         currentRoute: RouterService.currentRoute

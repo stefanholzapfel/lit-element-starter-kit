@@ -1,13 +1,13 @@
 import { customElement, html, LitElement } from 'lit-element';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query';
 import { RouterService } from '../../services/router.service';
-import { LitElementStateService } from '../../services/state/litElementState.service';
 
 import { styles } from './appLayout.styles';
 
 import './../../components/spinner-overlay';
 import './footer/footer';
 import './header/header';
+import { LitElementStateService } from 'lit-state';
 
 @customElement('lit-app-layout')
 export class AppLayout extends LitElement {
@@ -32,7 +32,7 @@ export class AppLayout extends LitElement {
         RouterService.init(outlet);
         installMediaQueryWatcher(
             `(max-width: 650px)`,
-            mediaQueryMatches => LitElementStateService.set({
+            mediaQueryMatches => LitElementStateService.getGlobalInstance().set({
                 app: {
                     mobile: mediaQueryMatches
                 }

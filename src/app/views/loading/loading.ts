@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { until } from 'lit-html/directives/until.js';
 import '../../components/spinner-overlay';
 import { ConfigService } from '../../services/config.service';
-import { LitElementStateService } from '../../services/state/litElementState.service';
+import { LitElementStateService } from 'lit-state';
 import { TranslateService } from '../../services/translate.service';
 
 import '../app-layout/appLayout';
@@ -36,19 +36,37 @@ export class Loading extends LitElement {
         this.initializing = Promise.all([
             ConfigService.init(),
             TranslateService.init('en-EN'),
-            LitElementStateService.init({
-                app: {
-                    mobile: false,
-                    language: 'en-EN',
-                    previousRoute: '/',
-                    currentRoute: '/'
+            new LitElementStateService<State>(
+                {
+                    app: {
+                        mobile: false,
+                        language: 'en-EN',
+                        previousRoute: '/',
+                        currentRoute: '/'
+                    },
+                    components: {
+                        main: {},
+                        page1: {},
+                        page2: {}
+                    }
                 },
-                components: {
-                    main: {},
-                    page1: {},
-                    page2: {}
-                }
-            })
+                undefined,
+                true
+            )
         ]);
     }
+}
+
+export interface State {
+    app: {
+        mobile: Boolean;
+        language: String;
+        previousRoute: String;
+        currentRoute: String;
+    };
+    components: {
+        main: {};
+        page1: {};
+        page2: {};
+    };
 }

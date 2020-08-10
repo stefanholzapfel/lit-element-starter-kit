@@ -1,6 +1,6 @@
 import { Strings, Values, ValuesCallback } from 'lit-translate/model';
 import { extract, get, registerTranslateConfig, use } from 'lit-translate';
-import { LitElementStateService } from './state/litElementState.service';
+import { LitElementStateService } from 'lit-state';
 
 export class TranslateService {
     public static async init(language: Language): Promise<TranslateService> {
@@ -42,7 +42,7 @@ export class TranslateService {
             TranslateService.loadedLanguages.set(language, langData);
         }
         await use(language);
-        LitElementStateService.set({
+        LitElementStateService.getGlobalInstance().set({
             app: {
                 language
             }

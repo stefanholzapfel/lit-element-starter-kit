@@ -1,13 +1,13 @@
 import { customElement, html, property } from 'lit-element';
-import { LitElementStateful } from '../../../services/state/litElementStateful';
 import { Language, TranslateService } from '../../../services/translate.service';
 import { translate } from 'lit-translate';
-
 import { sharedStyles } from '../../../../styles/shared.styles';
 import { styles } from './header.styles';
+import { LitElementStateful } from 'lit-state';
+import {State} from '../../loading/loading';
 
 @customElement('lit-header')
-export class Header extends LitElementStateful {
+export class Header extends LitElementStateful<State> {
     static get styles() {
         return [
             sharedStyles,
