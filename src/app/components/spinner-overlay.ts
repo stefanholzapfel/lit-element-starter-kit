@@ -1,5 +1,4 @@
-import '@polymer/paper-spinner/paper-spinner-lite.js';
-import { css, customElement, html, LitElement } from 'lit-element';
+import {css, customElement, html, LitElement} from 'lit-element';
 
 @customElement('spinner-overlay')
 export class SpinnerOverlay extends LitElement {
@@ -15,7 +14,7 @@ export class SpinnerOverlay extends LitElement {
             height: 100%;
         }
         .spinner-background {
-            z-index: 20;
+            z-index: 0;
             position: absolute;
             top: 0;
             left: 0;
@@ -24,41 +23,41 @@ export class SpinnerOverlay extends LitElement {
             width: 100%;
             height: 100%;
         }
-        .spinner-wrapper {
-            z-index: 21;
-            position: relative;
-            width: calc(100% * 0.2);
-            padding-top: calc(100% * 0.2);
-        }
 
-        paper-spinner-lite {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .spinner,
+        .spinner:after {
+          z-index: 1;
+          border-radius: 50%;
+          width: 20vw;
+          height: 20vw;
         }
-        
-        paper-spinner-lite.thin {
-            --paper-spinner-stroke-width: 1px;
+        .spinner {
+          margin: 60px auto;
+          font-size: 10px;
+          position: relative;
+          text-indent: -9999em;
+          border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+          border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+          border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+          border-left: 1.1em solid #ffffff;
+          transform: translateZ(0);
+          animation: spin 1.1s infinite linear;
         }
-        
-        paper-spinner-lite.thick {
-            --paper-spinner-stroke-width: 0.5rem;
-        }
-        paper-spinner-lite.color {
-            --paper-spinner-color: var(--sp-primary-color);
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
         }
     `;
     }
-    
+
     protected render() {
         return html`
-          <div class="spinner-wrapper">
-              <paper-spinner-lite class="thick color" active></paper-spinner-lite>
-          </div>
-          <div class="spinner-background">
-          </div>
+          <div class="spinner">Loading...</div>
+          <div class="spinner-background"></div>
     `;
     }
 }

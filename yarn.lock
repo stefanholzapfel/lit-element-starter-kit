@@ -890,42 +890,6 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@polymer/font-roboto@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@polymer/font-roboto/-/font-roboto-3.0.2.tgz#80cdaa7225db2359130dfb2c6d9a3be1820020c3"
-  integrity sha512-tx5TauYSmzsIvmSqepUPDYbs4/Ejz2XbZ1IkD7JEGqkdNUJlh+9KU85G56Tfdk/xjEZ8zorFfN09OSwiMrIQWA==
-
-"@polymer/iron-flex-layout@^3.0.0-pre.26":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@polymer/iron-flex-layout/-/iron-flex-layout-3.0.1.tgz#36f9e1a8eb792d279b2bc75d362628721ad37f0c"
-  integrity sha512-7gB869czArF+HZcPTVSgvA7tXYFze9EKckvM95NB7SqYF+NnsQyhoXgKnpFwGyo95lUjUW9TFDLUwDXnCYFtkw==
-  dependencies:
-    "@polymer/polymer" "^3.0.0"
-
-"@polymer/paper-spinner@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@polymer/paper-spinner/-/paper-spinner-3.0.2.tgz#c857c79f0494bc74e9ae293839d00f37fcf29f78"
-  integrity sha512-XUzu8/4NH+pnNZUTI2MxtOKFAr0EOsW7eGhTg3VBhTh7DDW/q3ewzwYRWnqNJokX9BEnxKMiXXaIeTEBq4k2dw==
-  dependencies:
-    "@polymer/paper-styles" "^3.0.0-pre.26"
-    "@polymer/polymer" "^3.0.0"
-
-"@polymer/paper-styles@^3.0.0-pre.26":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@polymer/paper-styles/-/paper-styles-3.0.1.tgz#bd4962b83ab8432cd1cf197bb5222d3a08f135e1"
-  integrity sha512-y6hmObLqlCx602TQiSBKHqjwkE7xmDiFkoxdYGaNjtv4xcysOTdVJsDR/R9UHwIaxJ7gHlthMSykir1nv78++g==
-  dependencies:
-    "@polymer/font-roboto" "^3.0.1"
-    "@polymer/iron-flex-layout" "^3.0.0-pre.26"
-    "@polymer/polymer" "^3.0.0"
-
-"@polymer/polymer@^3.0.0":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.4.1.tgz#333bef25711f8411bb5624fb3eba8212ef8bee96"
-  integrity sha512-KPWnhDZibtqKrUz7enIPOiO4ZQoJNOuLwqrhV2MXzIt3VVnUVJVG5ORz4Z2sgO+UZ+/UZnPD0jqY+jmw/+a9mQ==
-  dependencies:
-    "@webcomponents/shadycss" "^1.9.1"
-
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-7.1.3.tgz#80de384edfbd7bfc9101164910f86078151a3eca"
@@ -1224,11 +1188,6 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
-
-"@webcomponents/shadycss@^1.9.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.10.1.tgz#6f377b313c96a93a690f25206b32a20eada4b2a9"
-  integrity sha512-XEVDA7oH6o4Au9apyRDucjcIzvP44Ur4sqTMGRKCcE6sCAeKiOkRE03TCYNJAFkzckMWWT8Xx3IxG3iwjAcsRQ==
 
 "@webcomponents/webcomponentsjs@^2.4.4":
   version "2.4.4"

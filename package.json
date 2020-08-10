@@ -16,7 +16,6 @@
   "author": "Stefan Holzapfel",
   "license": "MIT",
   "dependencies": {
-    "@polymer/paper-spinner": "^3.0.2",
     "@vaadin/router": "^1.7.2",
     "@webcomponents/webcomponentsjs": "^2.4.4",
     "lit-element": "^2.3.1",
