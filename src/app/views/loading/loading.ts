@@ -22,7 +22,14 @@ export class Loading extends LitElement {
     private initializing: Promise<any> = null;
     
     protected render() {
-        return html`<spinner-overlay></spinner-overlay>`
+        if (this.initializing) {
+            return html`
+            ${ until(
+                this.initializing.then(res => html`<lit-app-layout></lit-app-layout>`),
+                html`<spinner-overlay></spinner-overlay>`
+            ) }
+            `;
+        }
     }
     
     protected firstUpdated() {
