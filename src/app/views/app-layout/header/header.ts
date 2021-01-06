@@ -36,7 +36,8 @@ export class Header extends LitElementStateful<State> {
                 <div style="align-self: end">
                     <a href="/" class="${ this.currentRoute === '/' ? 'bold' : '' }">${ translate('pages.main.title') }</a> |
                     <a href="/page1" class="${ this.currentRoute.startsWith('/page1') ? 'bold' : '' }">${ translate('pages.page1.title') }</a> |
-                    <a href="/page2" class="${ this.currentRoute.startsWith('/page2') ? 'bold' : '' }">${ translate('pages.page1.title') }</a>
+                    <a href="/page2" class="${ this.currentRoute.startsWith('/page2') ? 'bold' : '' }">${ translate('pages.page2.title') }</a> |
+                    <a href="/performanceDemo" class="${ this.currentRoute.startsWith('/performanceDemo') ? 'bold' : '' }">${ translate('pages.performanceDemo.title') }</a>
                 </div>
             </div>
             <div>

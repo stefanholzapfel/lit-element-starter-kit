@@ -17,6 +17,10 @@
     "page2": {
       "title": "Page 2",
       "text": "Content of page 2..."
+    },
+    "performanceDemo": {
+      "title": "Performance demonstration",
+      "text": "Compare the render performance of different strategies"
     }
   },
   "footer": {

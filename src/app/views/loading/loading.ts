@@ -3,11 +3,10 @@ import { until } from 'lit-html/directives/until.js';
 import { ConfigService } from '../../services/config.service';
 import { LitElementStateService } from 'lit-state';
 import { TranslateService } from '../../services/translate.service';
+import { styles } from './loading.styles';
 
 import '../app-layout/appLayout';
 import '../../components/spinner-overlay';
-
-import { styles } from './loading.styles';
 
 @customElement('lit-loading')
 export class Loading extends LitElement {
@@ -47,7 +46,8 @@ export class Loading extends LitElement {
                     components: {
                         main: {},
                         page1: {},
-                        page2: {}
+                        page2: {},
+                        performanceDemonstration: {}
                     }
                 },
                 undefined,
@@ -68,5 +68,6 @@ export interface State {
         main: {};
         page1: {};
         page2: {};
+        performanceDemonstration: {};
     };
 }

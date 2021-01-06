@@ -3,4 +3,4 @@ A starter kit for lit-element apps. Contains routing (vaadin/vaadin-router), tra
 
 Documentation coming soon.
 
-If you have improvements, please create PR.
+If you have improvements, please create a PR.

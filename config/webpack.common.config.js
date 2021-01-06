@@ -20,10 +20,12 @@ const getEnvVars = () => {
 
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: [
+        'regenerator-runtime/runtime.js',
+        './src/index.ts'
+    ],
     output: {
         filename: '[name].[chunkhash].bundle.js',
-        path: path.resolve(__dirname, '../dist'),
         publicPath: '/'
     },
     resolve: {
@@ -31,10 +33,6 @@ module.exports = {
         alias: {
             'assets': path.resolve('src/assets')
         }
-    },
-    devServer: {
-        historyApiFallback: true,
-        port: 7070
     },
     module: {
         rules: [
@@ -46,13 +44,8 @@ module.exports = {
                         presets: [
                             ['@babel/preset-env', {targets: {ie: '11'}}]
                         ],
-                        include: [
-                            // These packages are distributed as es2015 modules, therefore they need
-                            // to be transpiled to es5.
-                            /node_modules(?:\/|\\)lit-element|lit-html/
-                        ],
-                        plugins: [
-                            ['@babel/plugin-syntax-dynamic-import'],
+                        exclude: [
+                            'node_modules'
                         ]
                     }
                 }
@@ -76,12 +69,16 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(svg|woff(2)?|ttf|eot|png|jpg|gif|ico|tif)(\?v=\d+\.\d+\.\d+)?$/,
                 use: {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: 'fonts/'
+                        outputPath: (url, resourcePath, context) => {
+                            /* If a file is imported (e.g. in scss) and handled by this loader, save it to the same asset directory
+                            in order to avoid duplicates from CopyWebpackPlugin */
+                            return path.relative(context, resourcePath).slice(4).split('\\').join('/');
+                        }
                     }
                 }
             }
@@ -91,6 +88,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.SP_ENV_VARS': getEnvVars()
         }),
+        new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -108,14 +106,18 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'styles.[chunkhash].css'
         }),
-        new WorkboxWebpackPlugin.GenerateSW({
-            include: [/\.html$/, /\.json$/, /\.js$/, /\.png$/, /\.jpg$/, /\.jpeg$/, /\.json$/, /\.css$/, /\.ttf$/, /\.woff$/, /\.ico$/, /\.svg$/],
-            exclude: [/^node_modules\/@webcomponents\/webcomponentsjs\//],
-            navigateFallback: 'index.html',
-            swDest: 'service-worker.js',
-            clientsClaim: true,
-            skipWaiting: true
-        }),
-        new CleanWebpackPlugin()
-    ]
+        new WorkboxWebpackPlugin.InjectManifest({
+            swSrc: './base-service-worker.js',
+            swDest: 'service-worker.js'
+        })
+    ],
+    optimization: {
+        usedExports: true,
+        splitChunks: {
+            chunks: 'all',
+            maxInitialRequests: 30,
+            maxAsyncRequests: 30,
+            maxSize: 100000
+        }
+    }
 };

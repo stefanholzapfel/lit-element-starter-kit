@@ -86,6 +86,13 @@ export class RouterService {
                 ]
             },
             {
+                path: '/performanceDemo',
+                action: () => {
+                    import('../views/app-layout/pages/performanceDemo/performanceDemo');
+                },
+                component: 'lit-performance-demo'
+            },
+            {
                 path: '(.*)',
                 action: () => {
                     import('../views/app-layout/pages/main/main');
